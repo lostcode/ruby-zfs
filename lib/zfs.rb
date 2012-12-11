@@ -21,6 +21,7 @@ end
 
 # Pathname-inspired class to handle ZFS filesystems/snapshots/volumes
 class ZFS
+
   @zfs_path   = "zfs"
   @zpool_path = "zpool"
   @stmfadm_path = "stmfadm"
@@ -514,16 +515,26 @@ class ZFS::Filesystem < ZFS
     end
   end
 
-  def createlu
+  # create a logical unit for this file system
+  # return the lu number
+  def createlu()
     raise NotFound, "no such filesystem" if !exist?
 
-    cmd = [ZFS.stmfadm_path].flatten + ['create-lu', name]
+    cmd = [ZFS.stmfadm_path].flatten + ['create-lu', "/dev/zvol/dsk/" + name]
 
     out, status = Open3.capture2e(*cmd)
 
-    if status.success? and out.empty?
-      return self
+    if out.empty?
+      raise Exception, "no return message from create-lu"
+    end
+
+    if status.success?
+      return out.split[3]
+    elsif out.empty?
+      raise Exception, "no return message from create-lu"
     else
+      puts out
+      puts status
       raise Exception, "something went wrong"
     end
   end
