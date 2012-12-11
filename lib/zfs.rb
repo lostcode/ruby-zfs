@@ -3,6 +3,10 @@
 require 'pathname'
 require 'date'
 require 'open3'
+require 'target_group.rb'
+require 'iscsi_target.rb'
+require 'lu.rb'
+require 'view.rb'
 
 # Get ZFS object.
 def ZFS(path)
@@ -21,6 +25,10 @@ end
 
 # Pathname-inspired class to handle ZFS filesystems/snapshots/volumes
 class ZFS
+
+  # constants
+  STMFADM_PATH = "stmfadm"
+  ITADM_PATH = "itadm"
 
   @zfs_path   = "zfs"
   @zpool_path = "zpool"
@@ -529,7 +537,7 @@ class ZFS::Filesystem < ZFS
     end
 
     if status.success?
-      return out.split[3]
+      return LU.new(out.split[3])
     elsif out.empty?
       raise Exception, "no return message from create-lu"
     else
