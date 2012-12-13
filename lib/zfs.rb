@@ -153,7 +153,7 @@ class ZFS
     if status.success? and out.empty?
       return value
     else
-      raise Exception, "something went wrong"
+      raise Exception, "something went wrong: #{out}"
     end
   end
 
@@ -384,7 +384,7 @@ class ZFS::Snapshot < ZFS
     if status.success? and out.empty?
       return ZFS(clone)
     else
-      raise Exception, "something went wrong"
+      raise Exception, "something went wrong: out = #{out}"
     end
   end
 

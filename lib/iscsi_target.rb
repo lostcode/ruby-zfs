@@ -40,7 +40,7 @@ class IscsiTarget
       @name = out.split[1]
       self
     else
-      raise Exception, "something went wrong when creating iscsi target. output = " << out
+      raise Exception, "something went wrong when creating iscsi target. output = #{out}"
     end
   end
 
@@ -55,7 +55,7 @@ class IscsiTarget
     if status.success?
       self
     else
-      raise Exception, "something went wrong when deleting iscsi target. output = " << out
+      raise Exception, "something went wrong when deleting iscsi target. output = #{out}"
     end
   end
 
@@ -70,7 +70,7 @@ class IscsiTarget
     if status.success?
       self
     else
-      raise Exception, "something went wrong when taking iscsi target offline. output = " << out
+      raise Exception, "something went wrong when taking iscsi target offline. output = #{out}"
     end
   end
 
@@ -85,7 +85,7 @@ class IscsiTarget
     if status.success?
       self
     else
-      raise Exception, "something went wrong when taking iscsi target online. output = " << out
+      raise Exception, "something went wrong when taking iscsi target online. output = #{out}"
     end
   end
 

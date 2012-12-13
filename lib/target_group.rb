@@ -35,7 +35,7 @@ class TargetGroup
     if status.success? and out.empty?
       self
     else
-      raise Exception, "something went wrong when creating target group. output = " << out
+      raise Exception, "something went wrong when creating target group. output = #{out}"
     end
   end
 
@@ -49,7 +49,7 @@ class TargetGroup
     if status.success?
       self
     else
-      raise Exception, "something went wrong when deleting target group. output = " << out
+      raise Exception, "something went wrong when deleting target group. output = #{out}"
     end
   end
 
@@ -64,7 +64,7 @@ class TargetGroup
     if status.success? and out.empty?
       self
     else
-      raise Exception, "something went wrong when creating target group. output = " << out
+      raise Exception, "something went wrong when creating target group. output = #{out}"
     end
 
   end

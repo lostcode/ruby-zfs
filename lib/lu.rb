@@ -17,7 +17,7 @@ class LU
     if status.success?
       self
     else
-      raise Exception, "something went wrong when deleting LU. output = " << out
+      raise Exception, "something went wrong when deleting LU. output = #{out}"
     end
   end
 
@@ -42,7 +42,7 @@ class LU
     if status.success?
       self
     else
-      raise Exception, "something went wrong when adding view. output = " << out
+      raise Exception, "something went wrong when adding view. output = #{out}"
     end
 
     View.new(self, lun, target_group, host_group)
