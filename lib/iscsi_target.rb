@@ -17,7 +17,7 @@ class IscsiTarget
   def exist?
     raise ZFS::InvalidName, "no argument to iscsi target exist?" if @name.nil?
 
-    cmd = [ZFS::ITADM_PATH] + ["list-target", name]
+    cmd = [ZFS::ITADM_PATH] + ["list-target", @name]
 
     out, status = Open3.capture2e(*cmd)
 

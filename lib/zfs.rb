@@ -119,7 +119,7 @@ class ZFS
     if status.success? and out.empty?
       return true
     else
-      raise Exception, "something went wrong"
+      raise Exception, "something went wrong : out = #{out}"
     end
   end
 

@@ -21,6 +21,20 @@ class LU
     end
   end
 
+  def exist?
+    raise ZFS::InvalidName, "no argument to lu exist?" if @name.nil?
+
+    cmd = [ZFS::STMFADM_PATH] + ["list-lu", @name]
+
+    out, status = Open3.capture2e(*cmd)
+
+    if status.success?
+      true
+    else
+      false
+    end
+  end
+
   def add_view(lun, target_group, host_group)
 
     cmd = [ZFS::STMFADM_PATH] + ["add-view"]
@@ -29,10 +43,10 @@ class LU
       cmd += ["-n", lun]
     end
     if ( !target_group.nil? )
-      cmd += ["-t", target_group]
+      cmd += ["-t", target_group.name]
     end
     if ( !host_group.nil? )
-      cmd += ["-h", host_group]
+      cmd += ["-h", host_group.name]
     end
 
     cmd += [@name]
