@@ -468,7 +468,7 @@ class ZFS::Filesystem < ZFS
       initialize(newname)
       return self
     else
-      raise Exception, "something went wrong"
+      raise Exception, "something went wrong: out = #{out}"
     end
   end
 
@@ -486,7 +486,7 @@ class ZFS::Filesystem < ZFS
     if status.success? and out.empty?
       return ZFS("#{name}@#{snapname}")
     else
-      raise Exception, "something went wrong"
+      raise Exception, "something went wrong: out = #{out}"
     end
   end
 
@@ -519,7 +519,7 @@ class ZFS::Filesystem < ZFS
     if status.success? and out.empty?
       return self
     else
-      raise Exception, "something went wrong"
+      raise Exception, "something went wrong: out = #{out}"
     end
   end
 
@@ -541,9 +541,7 @@ class ZFS::Filesystem < ZFS
     elsif out.empty?
       raise Exception, "no return message from create-lu"
     else
-      puts out
-      puts status
-      raise Exception, "something went wrong"
+      raise Exception, "something went wrong: out = #{out}"
     end
   end
 end
