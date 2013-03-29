@@ -35,6 +35,23 @@ class LU
     end
   end
 
+  # get target group for this lu
+  # currently, 1-1 relationship between lu and target group
+  def get_tg
+    raise ZFS::NotFound, "no such lu #{@name}" unless exist?
+
+    cmd = [ZFS::STMFADM_PATH] + ["list-view", "-l", @name]
+    out, status = Open3.capture2e(*cmd)
+    if status.success?
+      out.lines.collect do |line|
+        if line.include? "Target Group"
+          return TargetGroup.new(line.split[3])
+        end
+      end
+    end
+    nil
+  end
+
   def add_view(lun, target_group, host_group)
 
     cmd = [ZFS::STMFADM_PATH] + ["add-view"]

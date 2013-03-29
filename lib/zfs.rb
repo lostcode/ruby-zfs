@@ -177,6 +177,21 @@ class ZFS
       end
     end
 
+    # get an array of all logical units
+    def logical_units
+      logical_units = Array.new
+      cmd = [ZFS::STMFADM_PATH] + ["list-lu"]
+      out, status = Open3.capture2e(*cmd)
+      if status.success?
+        out.lines.collect do |lu|
+          logical_units.push(lu.split[2])
+        end
+      else
+        raise Exception, "something went wrong: out = #{out}"
+      end
+      logical_units
+    end
+
     # Get a Hash of all mountpoints and their filesystems
     def mounts
       cmd = [ZFS.zfs_path].flatten + %w(get -rHp -oname,value mountpoint)
