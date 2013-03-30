@@ -84,6 +84,7 @@ class TargetGroup
     else
       raise Exception, "something went wrong when getting target for target group. output = #{out}"
     end
+    nil
   end
 
 end
