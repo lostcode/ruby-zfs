@@ -93,6 +93,8 @@ class ZFS
 
     cmd = [ZFS.zfs_path].flatten + ['create']
     cmd << '-p' if opts[:parents]
+    cmd << '-s' if opts[:volume] and opts[:sparse]
+    cmd += opts[:zfsopts].map{|el| ['-o', el]}.flatten if opts[:zfsopts]
     cmd += ['-V', opts[:volume]] if opts[:volume]
     cmd << name
 
